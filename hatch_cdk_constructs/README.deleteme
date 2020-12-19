@@ -1,0 +1,1 @@
+Add all python source files to this python module. Please add unit tests for each source file in a `test_<source_filename>.py` file at a mirrored path in the `test` directory.
