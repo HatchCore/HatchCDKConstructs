@@ -11,7 +11,8 @@ version = f"{SEMANTIC_VERSION}.{TIMESTAMP}"
 setuptools.setup(
     name="hatch_cdk_constructs",
     version=version,
-    description="This package contains reusable CDK constructs for Hatch projects. It will be automatically deployed as a wheel to the Hatch CodeArtifact repository.",
+    description="This package contains reusable CDK constructs for Hatch projects. It will be automatically deployed "
+                "as a wheel to the Hatch CodeArtifact repository.",
     author="HatchCore",
     packages=setuptools.find_packages(exclude=("test", )),
     install_requires=[
@@ -23,7 +24,8 @@ setuptools.setup(
         "aws-cdk.aws-events-targets",
         "aws-cdk.aws-iam",
         "aws-cdk.aws_lambda",
-        "aws-cdk.aws_s3"
+        "aws-cdk.aws_s3",
+        "aws-cdk.aws_codestarconnections"
     ],
     tests_require=[
         "mock",
