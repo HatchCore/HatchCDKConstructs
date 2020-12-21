@@ -1,8 +1,6 @@
 """
 Module for PrefixedStack
 """
-from typing import Optional
-
 from aws_cdk import core
 
 

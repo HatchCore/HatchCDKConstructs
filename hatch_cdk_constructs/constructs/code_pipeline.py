@@ -46,13 +46,13 @@ class CodeCommitBuildPipeline(codepipeline.Pipeline):
             output=source_output,
             owner=repository_owner,
             repo=source_repository_name,
-            action_name=f'Source',
+            action_name='Source',
             branch=source_repository_branch,
         )
 
         build_output = codepipeline.Artifact()
         build_action = codepipeline_actions.CodeBuildAction(
-            action_name=f'Build',
+            action_name='Build',
             input=source_output,
             project=build_project,
             outputs=[build_output],
