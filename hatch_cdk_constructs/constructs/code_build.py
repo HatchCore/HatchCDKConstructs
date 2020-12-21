@@ -102,6 +102,8 @@ class PythonWheelBuildProject(PythonBuildProject):
                  **kwargs):
 
         install_commands = [
+            f'aws codeartifact login --tool twine --domain {domain} --domain-owner {domain_owner_account_id} '
+            f'--repository {artifact_repository}',
             'pip install -r requirements.txt' if path.exists('requirements.txt') else 'pip install .',
         ]
 
