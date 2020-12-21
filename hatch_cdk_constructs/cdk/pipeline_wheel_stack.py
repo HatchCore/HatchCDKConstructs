@@ -1,4 +1,4 @@
-"""Python wheel hub pipeline stack for {{package_name}}"""
+"""Python wheel hub pipeline stack for PipelineWheelStack"""
 
 from aws_cdk import core
 
