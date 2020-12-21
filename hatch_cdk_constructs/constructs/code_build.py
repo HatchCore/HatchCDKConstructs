@@ -46,7 +46,7 @@ class PythonBuildProject(ABC, codebuild.PipelineProject):
         if runtime_versions is None:
             runtime_versions = {'python': '3.8'}
         if add_install_commands is not None:
-            install_commands.extend(add_install_commands)
+            install_commands += add_install_commands
 
         super().__init__(
             scope,
@@ -104,8 +104,10 @@ class PythonWheelBuildProject(PythonBuildProject):
                  post_build_commands: Optional[List[str]] = None,
                  **kwargs):
 
-        if add_install_commands is None:
-            add_install_commands = self._install_commands(domain, domain_owner_account_id, artifact_repository)
+        install_commands = self._install_commands(domain, domain_owner_account_id, artifact_repository)
+
+        if add_install_commands is not None:
+            install_commands += add_install_commands
 
         if test_commands is None:
             test_commands = [
@@ -126,7 +128,7 @@ class PythonWheelBuildProject(PythonBuildProject):
             domain=domain,
             domain_owner_account_id=domain_owner_account_id,
             artifact_repository=artifact_repository,
-            add_install_commands=add_install_commands,
+            add_install_commands=install_commands,
             test_commands=test_commands,
             build_commands=build_commands,
             post_build_commands=post_build_commands,
