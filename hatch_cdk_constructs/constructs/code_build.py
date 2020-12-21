@@ -119,7 +119,7 @@ class PythonWheelBuildProject(PythonBuildProject):
             ]
         if post_build_commands is None:
             post_build_commands = [
-                'twine upload --verboe --repository codeartifact ./dist/*.whl',
+                'twine upload --verbose --repository codeartifact ./dist/*.whl',
             ]
 
         super().__init__(

@@ -6,8 +6,6 @@ from hatch_cdk_constructs.constructs.code_build import PythonWheelBuildProject
 from hatch_cdk_constructs.constructs.code_pipeline import CodeCommitBuildPipeline
 from hatch_cdk_constructs.constructs.stacks import PrefixedStack
 
-ARTIFACT_REPOSITORY = 'core'
-
 
 class PipelineWheelStack(PrefixedStack):
     """
@@ -17,13 +15,11 @@ class PipelineWheelStack(PrefixedStack):
     def __init__(self,
                  scope: core.Construct,
                  name: str,
-                 package_name: str,
-                 artifact_repository: str = ARTIFACT_REPOSITORY):
+                 package_name: str):
         super().__init__(scope, name)
 
         build_project = PythonWheelBuildProject(scope=self,
-                                                name=self._get_prefixed_name(name),
-                                                artifact_repository=artifact_repository)
+                                                name=self._get_prefixed_name(name))
 
         CodeCommitBuildPipeline(scope=self,
                                 name=self._get_prefixed_name(f"{package_name}-WheelPipeline"),

@@ -25,34 +25,34 @@ class CodeCommitBuildPipeline(codepipeline.Pipeline):
                  name: str,
                  build_project: codebuild.PipelineProject,
                  source_repository_name: str,
-                 provider_type: str = 'Github',
+                 provider_type: str = 'GitHub',
                  repository_owner: str = 'HatchCore',
                  source_repository_branch: str = 'main',
                  artifact_bucket: Optional[s3.IBucket] = None):
 
         connection = codestarconnections.CfnConnection(
             scope=scope,
-            id=f'{name}Connection',
-            connection_name=f'{name}Connection',
+            id=f'{source_repository_name[:28]}Connection',
+            connection_name=f'{source_repository_name[:28]}Connection',
             provider_type=provider_type,
         )
 
         source_output = codepipeline.Artifact()
 
-        # BitBucketSourceAction supports Github.
+        # BitBucketSourceAction supports GitHub.
         # https://github.com/aws/aws-cdk/issues/10632
         source_action = codepipeline_actions.BitBucketSourceAction(
             connection_arn=connection.attr_connection_arn,
             output=source_output,
             owner=repository_owner,
             repo=source_repository_name,
-            action_name=f'{name}Source',
+            action_name=f'Source',
             branch=source_repository_branch,
         )
 
         build_output = codepipeline.Artifact()
         build_action = codepipeline_actions.CodeBuildAction(
-            action_name=f'{name}Build',
+            action_name=f'Build',
             input=source_output,
             project=build_project,
             outputs=[build_output],

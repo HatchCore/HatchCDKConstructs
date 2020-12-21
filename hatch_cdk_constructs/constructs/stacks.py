@@ -19,8 +19,9 @@ class PrefixedStack(core.Stack):
 
         self.prefix = self.node.try_get_context("prefix")
 
-    @staticmethod
-    def _get_prefixed_name(name: str, prefix: Optional[str] = None):
+    def _get_prefixed_name(self, name: str):
+        prefix = self.prefix
+
         if prefix is None:
             prefix = ''
 
