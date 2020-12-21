@@ -81,7 +81,7 @@ class PythonBuildProject(ABC, codebuild.PipelineProject):
         return [
             'apt-get update',
             'npm install -g aws-cdk',
-            'pip install -U awscli pip pipenv twine wheel',
+            'pip install -U awscli pip pipenv twine wheel pytest-runner',
             f'aws codeartifact login --tool pip --domain {domain} --domain-owner {domain_owner_account_id} '
             f'--repository {repository}'
         ]
