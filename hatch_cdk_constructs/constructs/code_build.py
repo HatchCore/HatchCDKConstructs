@@ -81,7 +81,7 @@ class PythonBuildProject(ABC, codebuild.PipelineProject):
         return [
             'apt-get update',
             'npm install -g aws-cdk',
-            'pip install -U awscli pip pipenv twine wheel pytest-runner',
+            'pip install -U awscli pip pipenv twine wheel',
             f'aws codeartifact login --tool pip --domain {domain} --domain-owner {domain_owner_account_id} '
             f'--repository {repository}'
         ]
@@ -104,10 +104,8 @@ class PythonWheelBuildProject(PythonBuildProject):
                  post_build_commands: Optional[List[str]] = None,
                  **kwargs):
 
-        install_commands = self._install_commands(domain, domain_owner_account_id, artifact_repository)
-
-        if add_install_commands is not None:
-            install_commands.extend(add_install_commands)
+        if add_install_commands is None:
+            add_install_commands = self._install_commands(domain, domain_owner_account_id, artifact_repository)
 
         if test_commands is None:
             test_commands = [
