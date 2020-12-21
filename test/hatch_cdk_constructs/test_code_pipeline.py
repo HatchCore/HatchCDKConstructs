@@ -6,8 +6,8 @@ Test module for Code Pipeline module
 # According to https://docs.aws.amazon.com/cdk/latest/guide/testing.html, testing of CDK constructs is only supported
 # in Typescript. When python tests are supported, these test should be updated to be more expressive.
 from aws_cdk import core
-from hatch_cdk_constructs.code_build import PythonWheelBuildProject
-from hatch_cdk_constructs.code_pipeline import CodeCommitBuildPipeline
+from hatch_cdk_constructs.constructs.code_build import PythonWheelBuildProject
+from hatch_cdk_constructs.constructs.code_pipeline import CodeCommitBuildPipeline
 
 
 def test_code_commit_build_pipeline_can_be_initialized_in_a_cdk_stack():

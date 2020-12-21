@@ -2,7 +2,7 @@
 Constants for Hatch CDK Constructs
 """
 
-
+# Move this to HatchUtilities
 # pylint: disable=too-few-public-methods
 class CodeArtifactConstants:
     """

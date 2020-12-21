@@ -9,6 +9,7 @@ from aws_cdk import (
     aws_codepipeline as codepipeline,
     aws_codepipeline_actions as codepipeline_actions,
     aws_s3 as s3,
+    aws_iam as iam,
     core,
     aws_codestarconnections as codestarconnections,
 )
