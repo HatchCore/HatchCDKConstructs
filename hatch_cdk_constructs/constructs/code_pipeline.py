@@ -11,8 +11,9 @@ from aws_cdk import (
     aws_s3 as s3,
     aws_iam as iam,
     core,
-    aws_codestarconnections as codestarconnections,
 )
+
+from hatch_cdk_constructs.constants import CodeArtifactConstants
 
 
 class CodeCommitBuildPipeline(codepipeline.Pipeline):
@@ -25,24 +26,16 @@ class CodeCommitBuildPipeline(codepipeline.Pipeline):
                  name: str,
                  build_project: codebuild.PipelineProject,
                  source_repository_name: str,
-                 provider_type: str = 'GitHub',
                  repository_owner: str = 'HatchCore',
                  source_repository_branch: str = 'main',
                  artifact_bucket: Optional[s3.IBucket] = None):
-
-        connection = codestarconnections.CfnConnection(
-            scope=scope,
-            id=f'{source_repository_name[:28]}Connection',
-            connection_name=f'{source_repository_name[:28]}Connection',
-            provider_type=provider_type,
-        )
 
         source_output = codepipeline.Artifact()
 
         # BitBucketSourceAction supports GitHub.
         # https://github.com/aws/aws-cdk/issues/10632
         source_action = codepipeline_actions.BitBucketSourceAction(
-            connection_arn=connection.attr_connection_arn,
+            connection_arn=CodeArtifactConstants.CODESTAR_CONNECTION_ARN,
             output=source_output,
             owner=repository_owner,
             repo=source_repository_name,
@@ -80,7 +73,7 @@ class CodeCommitBuildPipeline(codepipeline.Pipeline):
                 ],
                 effect=iam.Effect.ALLOW,
                 resources=[
-                    connection.attr_connection_arn
+                    CodeArtifactConstants.CODESTAR_CONNECTION_ARN
                 ]
             )
         )

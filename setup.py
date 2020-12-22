@@ -24,8 +24,7 @@ setuptools.setup(
         "aws-cdk.aws-events-targets",
         "aws-cdk.aws-iam",
         "aws-cdk.aws_lambda",
-        "aws-cdk.aws_s3",
-        "aws-cdk.aws_codestarconnections"
+        "aws-cdk.aws_s3"
     ],
     tests_require=[
         "mock",
