@@ -12,7 +12,7 @@ from aws_cdk import (
     core
 )
 
-from hatch_cdk_constructs.constants import CodeArtifactConstants
+from hatch_utilities.aws.constants import CodeArtifactConstants
 
 DEFAULT_BUILD_ENVIRONMENT = codebuild.BuildEnvironment(
     build_image=codebuild.LinuxBuildImage.STANDARD_4_0,

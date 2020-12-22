@@ -13,7 +13,7 @@ from aws_cdk import (
     core,
 )
 
-from hatch_cdk_constructs.constants import CodeArtifactConstants
+from hatch_utilities.aws.constants import CodeArtifactConstants
 
 
 class CodeCommitBuildPipeline(codepipeline.Pipeline):
