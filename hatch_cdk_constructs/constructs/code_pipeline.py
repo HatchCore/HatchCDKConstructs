@@ -1,5 +1,5 @@
 """
-Test module for CodeBuild CDK Constructs
+Module for CodePipeline CDK Constructs
 """
 
 from typing import Optional

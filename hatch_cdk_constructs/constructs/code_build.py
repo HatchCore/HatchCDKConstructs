@@ -1,5 +1,5 @@
 """
-Test module for CodeBuild CDK Constructs
+Module for CodeBuild CDK Constructs
 """
 
 from abc import ABC
