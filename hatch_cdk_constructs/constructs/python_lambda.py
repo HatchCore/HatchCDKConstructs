@@ -25,14 +25,15 @@ class PythonLambdaFunction(lambda_.Function):
     # pylint: disable=too-many-arguments
     def __init__(self, scope: core.Construct, name: str, target_package: str, handler: str,
                  runtime: lambda_.Runtime = lambda_.Runtime.PYTHON_3_8, dependency_packages: List[str] = None,
-                 zip_name: str = None, **kwargs):
+                 zip_name: str = None, zip_dir: str = None, **kwargs):
 
-        code = lambda_.Code.from_asset(self.build_lambda_zip(target_package, dependency_packages, zip_name))
+        code = lambda_.Code.from_asset(self.build_lambda_zip(target_package, dependency_packages, zip_name, zip_dir))
         code.bind(scope)
         super().__init__(scope, name, code=code, handler=handler, runtime=runtime, **kwargs)
 
     @classmethod
-    def build_lambda_zip(cls, target_package: str, dependency_packages: List[str] = None, zip_name: str = None):
+    def build_lambda_zip(cls, target_package: str, dependency_packages: List[str] = None, zip_name: str = None,
+                         zip_dir: str = None):
         """
         Zips up a target package and specified dependency packages for a lambda handler.
         """
@@ -41,6 +42,14 @@ class PythonLambdaFunction(lambda_.Function):
 
         if zip_name is None:
             zip_name = f'{str(uuid4())}.zip'
+
+        if zip_dir is None:
+            zip_dir = '.lambda_assets'
+
+        if not os.path.exists(zip_dir):
+            os.makedirs(zip_dir)
+
+        zip_name = os.path.join(zip_dir, zip_name)
 
         with zipfile.ZipFile(zip_name, 'w') as lambda_zip:
             cls._add_package_to_zip(lambda_zip, target_package)
