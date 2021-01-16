@@ -28,7 +28,6 @@ class PythonLambdaFunction(lambda_.Function):
                  zip_name: str = None, zip_dir: str = None, **kwargs):
 
         code = lambda_.Code.from_asset(self.build_lambda_zip(target_package, dependency_packages, zip_name, zip_dir))
-        code.bind(scope)
         super().__init__(scope, name, code=code, handler=handler, runtime=runtime, **kwargs)
 
     @classmethod
