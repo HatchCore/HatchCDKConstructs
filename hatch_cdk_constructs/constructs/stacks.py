@@ -17,7 +17,7 @@ class PrefixedStack(core.Stack):
 
         self.prefix = self.node.try_get_context("prefix")
 
-    def _get_prefixed_name(self, name: str):
+    def _get_prefixed_name(self, name: str, delimiter: str = '-'):
         prefix = self.prefix
 
         if prefix is None:
@@ -26,4 +26,4 @@ class PrefixedStack(core.Stack):
         if prefix == '':
             return name
 
-        return f'{prefix}-{name}'
+        return delimiter.join([prefix, name])
