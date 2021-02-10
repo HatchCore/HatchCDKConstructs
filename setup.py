@@ -25,7 +25,7 @@ setuptools.setup(
         "aws-cdk.aws-iam>=1.83.0",
         "aws-cdk.aws_lambda>=1.83.0",
         "aws-cdk.aws_s3>=1.83.0",
-        "hatch_utilities>=0.1.20210114.112152",
+        "hatch_utilities>=0.1.20210210.85737",
     ],
     tests_require=[
         "mock",
