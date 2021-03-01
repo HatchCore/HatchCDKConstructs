@@ -1,0 +1,24 @@
+# See https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-create-2p
+
+ARG PYTHON_VERSION="3.7"
+FROM python:${PYTHON_VERSION}-slim-buster as build-image
+
+# Install aws-lambda-cpp build dependencies. Node is included for those depending on CDK.
+RUN apt-get update && apt-get install -y g++ make cmake unzip libcurl4-openssl-dev nodejs
+
+# Create directory where lambda artifacts will be stored
+ARG FUNCTION_DIR="/function"
+RUN mkdir -p ${FUNCTION_DIR}
+
+# Install 3rd party dependencies from CodeArtifact
+ARG INDEX_URL
+RUN pip config set global.index-url $INDEX_URL
+ARG DEPENDENCIES
+RUN pip install --target ${FUNCTION_DIR} awslambdaric ${DEPENDENCIES}
+
+# Copy local override files for development
+COPY . ${FUNCTION_DIR}/
+
+# Configure docker lambda runtime to run the handler
+WORKDIR ${FUNCTION_DIR}
+ENTRYPOINT [ "/usr/local/bin/python", "-m", "awslambdaric" ]
